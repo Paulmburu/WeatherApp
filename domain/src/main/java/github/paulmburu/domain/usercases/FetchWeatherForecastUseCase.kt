@@ -14,7 +14,7 @@ typealias FetchWeatherForecastBaseUseCase = FlowBaseUseCase<Coordinates, Flow<Re
 class FetchWeatherForecastUseCase constructor(private val weatherRepository: WeatherRepository) :
     FetchWeatherForecastBaseUseCase {
     override fun invoke(params: Coordinates): Flow<Resource<List<CurrentLocationWeather>>> = flow {
-        val result = weatherRepository.fetchWeatherForecast(params.lat, params.long)
+        val result = weatherRepository.fetchWeatherForecast(params.lat, params.lon)
         result.collect { resource ->
             when (resource) {
                 is Resource.Success -> {

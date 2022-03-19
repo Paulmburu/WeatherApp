@@ -14,7 +14,7 @@ typealias GetCurrentWeatherBaseUseCase = BaseUseCase<Coordinates, Flow<Resource<
 class GetCurrentWeatherUseCase constructor(private val weatherRepository: WeatherRepository) :
     GetCurrentWeatherBaseUseCase {
     override suspend fun invoke(params: Coordinates): Flow<Resource<CurrentLocationWeather>> = flow {
-        val result = weatherRepository.getCurrentWeather(params.lat, params.long)
+        val result = weatherRepository.getCurrentWeather(params.lat, params.lon)
         result.collect { resource ->
             when (resource) {
                 is Resource.Success -> {

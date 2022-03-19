@@ -4,6 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Access BEARER_TOKEN
+        env:
+          BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
+          run: echo BEARER_TOKEN=\"$BEARER_TOKEN\" > ./data/network/secrets.properties
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Build the app

@@ -1,21 +1,21 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = 31
-
     defaultConfig {
-        minSdk = 21
-        targetSdk = 31
+        compileSdk = AndroidSdk.targetSdkVersion
+        minSdk = AndroidSdk.minSdkVersion
+        targetSdk = AndroidSdk.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -27,17 +27,48 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(project(Libraries.Modules.common))
+    implementation(project(Libraries.Modules.domain))
+
+    //Ktx Core
+    implementation(Libraries.AndroidX.coreKtx)
+
+    //Coroutine
+    implementation(Libraries.Coroutines.core)
+
+    //Timber
+    implementation(Libraries.Timber.timber)
+
+    //Room
+    api(Libraries.AndroidX.Room.ktx)
+    api(Libraries.AndroidX.Room.runtime)
+    kapt(Libraries.AndroidX.Room.compiler)
+
+    //Hilt
+    implementation(Libraries.Google.Hilt.android)
+    kapt(Libraries.Google.Hilt.compiler)
+
+    //Tests
+    testImplementation(Libraries.JUnit.junit)
+    testImplementation(Libraries.Google.truth)
+    testImplementation(Libraries.AndroidX.Test.runner)
+    testImplementation(Libraries.AndroidX.Test.rules)
+    testImplementation(Libraries.AndroidX.Test.Ext.junit)
+
+    androidTestImplementation(Libraries.Google.truth)
+    androidTestImplementation(Libraries.AndroidX.Test.runner)
+    androidTestImplementation(Libraries.AndroidX.Test.core)
+    androidTestImplementation(Libraries.AndroidX.Test.rules)
+    androidTestImplementation(Libraries.AndroidX.Test.Ext.junit)
+
 }
