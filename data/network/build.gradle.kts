@@ -16,7 +16,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BEARER_TOKEN", getBearerTokenFromFile())
     }
 
     buildTypes {
@@ -62,13 +61,4 @@ dependencies {
     implementation(Libraries.JUnit.junit)
     implementation(Libraries.Google.truth)
     implementation(Libraries.OkHttp.mockWebServer)
-}
-
-fun getBearerTokenFromFile(): String {
-    val secretsFile = file("secrets.properties")
-    val secrets = Properties()
-    if (secretsFile.exists()) {
-        secrets.load(FileInputStream(secretsFile))
-    }
-    return secrets.getProperty("BEARER_TOKEN", "")
 }

@@ -39,6 +39,7 @@ object Libraries {
 
     object Google {
         const val material = "com.google.android.material:material:1.4.0"
+        const val servicesLocation = "com.google.android.gms:play-services-location:19.0.1"
         const val truth = "com.google.truth:truth:1.1.3"
 
         object Hilt {

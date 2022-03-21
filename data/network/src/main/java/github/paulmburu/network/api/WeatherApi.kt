@@ -13,6 +13,7 @@ interface WeatherApi {
     suspend fun fetchCurrentWeather(
         @Query("lat", encoded = true) lat: String,
         @Query("lon", encoded = true) lon: String,
+        @Query("appid", encoded = true) appid: String,
     ): Response<CurrentLocationWeatherDto>
 
     @POST("data/2.5/forecast")
@@ -20,5 +21,6 @@ interface WeatherApi {
     suspend fun fetchWeatherForecast(
         @Query("lat", encoded = true) lat: String,
         @Query("lon", encoded = true) lon: String,
+        @Query("appid", encoded = true) appid: String,
     ): Response<ForecastResponse>
 }

@@ -1,10 +1,10 @@
 package github.paulmburu.domain.models
 
 data class CurrentLocationWeather(
-    val id: String,
+    var id: String,
+    val name: String,
     val coord: Coordinates,
     val weatherInfo: List<WeatherInfo>,
     val mainInfo: MainInfo,
-    val timeForecast: String?
-
+    val timeStamp: String
 )
