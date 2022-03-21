@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="sunny">#47AB2F</color>
+    <color name="cloudy">#54717A</color>
+    <color name="rainy">#57575D</color>
+    <color name="bali_hai">#859FAF</color>
 </resources>

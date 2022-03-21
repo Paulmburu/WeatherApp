@@ -1,3 +1,5 @@
+import java.util.Properties
+import java.io.FileInputStream
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -12,6 +14,8 @@ android {
         targetSdk = AndroidSdk.targetSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BEARER_TOKEN", getBearerTokenFromFile())
     }
 
     buildTypes {
@@ -45,6 +49,7 @@ dependencies {
     //Ktx Core
     implementation(Libraries.AndroidX.coreKtx)
 
+    implementation(Libraries.Kotlin.stdlib)
     //Coroutine
     implementation(Libraries.Coroutines.core)
 
@@ -62,4 +67,13 @@ dependencies {
 
     androidTestImplementation(Libraries.AndroidX.Test.Ext.junit)
     androidTestImplementation(Libraries.AndroidX.Test.espressoCore)
+}
+
+fun getBearerTokenFromFile(): String {
+    val secretsFile = file("secrets.properties")
+    val secrets = Properties()
+    if (secretsFile.exists()) {
+        secrets.load(FileInputStream(secretsFile))
+    }
+    return secrets.getProperty("BEARER_TOKEN", "")
 }

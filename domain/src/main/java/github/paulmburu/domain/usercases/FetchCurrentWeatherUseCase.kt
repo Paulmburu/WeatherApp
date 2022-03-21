@@ -26,9 +26,6 @@ class FetchCurrentWeatherUseCase constructor(private val weatherRepository: Weat
                 is Resource.Error -> {
                     emit(Resource.Error(message = resource.message))
                 }
-                else -> {
-
-                }
             }
         }
     }

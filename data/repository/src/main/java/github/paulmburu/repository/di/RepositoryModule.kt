@@ -14,7 +14,7 @@ import github.paulmburu.repository.repository.WeatherRepositoryImpl
 object RepositoryModule {
 
     @Provides
-    fun providesTaskRepository(
+    fun providesWeatherRepository(
         weatherApi: WeatherApi,
         weatherDao: WeatherDao,
     ) : WeatherRepository {

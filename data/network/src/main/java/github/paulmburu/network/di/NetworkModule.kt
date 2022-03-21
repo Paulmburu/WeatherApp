@@ -31,7 +31,7 @@ object NetworkModule {
             }
         }
 
-        val authInterceptor = CreateAuthInterceptor(BEARER, BuildConfig.BEARER_TOKEN)
+        val authInterceptor = CreateAuthInterceptor()
 
         return OkHttpClient.Builder()
             .connectTimeout(60L, TimeUnit.SECONDS)

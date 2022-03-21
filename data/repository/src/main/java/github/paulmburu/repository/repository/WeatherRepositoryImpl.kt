@@ -2,16 +2,16 @@ package github.paulmburu.repository.repository
 
 import github.paulmburu.common.Resource
 import github.paulmburu.domain.models.CurrentLocationWeather
+import github.paulmburu.domain.models.WeatherForecast
 import github.paulmburu.domain.repository.WeatherRepository
 import github.paulmburu.local.dao.WeatherDao
 import github.paulmburu.local.mappers.toDomain
 import github.paulmburu.local.mappers.toLocal
+import github.paulmburu.local.models.WeatherForecastEntity
 import github.paulmburu.network.api.WeatherApi
 import github.paulmburu.network.mappers.toDomain
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
+import github.paulmburu.repository.BuildConfig
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
@@ -27,18 +27,28 @@ class WeatherRepositoryImpl @Inject constructor(
     ): Flow<Resource<CurrentLocationWeather>> = flow {
         try {
 
-            val result = weatherApi.fetchCurrentWeather(lat.toString(),lon.toString())
+            val result = weatherApi.fetchCurrentWeather(
+                lat.toString(),
+                lon.toString(),
+                BuildConfig.BEARER_TOKEN
+            )
             when {
-                result.isSuccessful -> emit(
-                    Resource.Success(result.body()!!.toDomain())
-                )
+                result.isSuccessful -> {
+                    weatherDao.insertCurrentWeather(
+                        arrayListOf(
+                            result.body()!!.toDomain().toLocal()
+                        )
+                    )
+                    emit(
+                        Resource.Success(result.body()!!.toDomain())
+                    )
+                }
                 else -> emit(Resource.Error(message = result.message()))
             }
         } catch (e: IOException) {
             emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         } catch (e: Exception) {
-            // emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         }
     }
@@ -46,32 +56,40 @@ class WeatherRepositoryImpl @Inject constructor(
     override fun fetchWeatherForecast(
         lat: Double,
         lon: Double
-    ): Flow<Resource<List<CurrentLocationWeather>>> = flow {
+    ): Flow<Resource<List<WeatherForecast>>> = flow {
         try {
 
-            val result = weatherApi.fetchWeatherForecast(lat.toString(),lon.toString())
+            val result = weatherApi.fetchWeatherForecast(
+                lat.toString(),
+                lon.toString(),
+                BuildConfig.BEARER_TOKEN
+            )
             when {
-                result.isSuccessful -> emit(
-                    Resource.Success(result.body()!!.currentLocationWeatherForecast.map { it.toDomain() })
-                )
+                result.isSuccessful -> {
+                    weatherDao.insertWeatherForecast(result.body()!!.list.map {
+                        it.toDomain().toLocal()
+                    })
+                    emit(
+                        Resource.Success(result.body()!!.list.map { it.toDomain() })
+                    )
+                }
                 else -> emit(Resource.Error(message = result.message()))
             }
         } catch (e: IOException) {
             emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         } catch (e: Exception) {
-            // emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         }
     }
 
     override suspend fun insertCurrentWeather(currentWeather: List<CurrentLocationWeather>) {
         weatherDao.insertCurrentWeather(currentWeather.map { it ->
-            it.toLocal().also { it.id = "current_weather" }
+            it.apply { id =  "current_weather"}.toLocal()
         })
     }
 
-    override suspend fun insertWeatherForecast(weatherForecast: List<CurrentLocationWeather>) {
+    override suspend fun insertWeatherForecast(weatherForecast: List<WeatherForecast>) {
         weatherDao.insertWeatherForecast(weatherForecast.map { it ->
             it.toLocal()
         })
@@ -88,17 +106,18 @@ class WeatherRepositoryImpl @Inject constructor(
         lon: Double
     ): Flow<Resource<CurrentLocationWeather>> = flow {
         try {
-            val result = weatherDao.findCurrentWeather()
-            val data = result.map { it[0].toDomain() }.toList()
-            emit(Resource.Success(
-                data[0]
-            ))
-
+            weatherDao.findCurrentWeather().collect {
+                val data = it.map { locationWeatherEntity -> locationWeatherEntity.toDomain() }
+                emit(
+                    Resource.Success(
+                        data.last()
+                    )
+                )
+            }
         } catch (e: IOException) {
             emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         } catch (e: Exception) {
-            //emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         }
     }
@@ -106,19 +125,20 @@ class WeatherRepositoryImpl @Inject constructor(
     override fun getWeatherForecast(
         lat: Double,
         lon: Double
-    ): Flow<Resource<List<CurrentLocationWeather>>> = flow {
+    ): Flow<Resource<List<WeatherForecast>>> = flow {
         try {
-            val result = weatherDao.weatherForecast()
-            val data = result.map { it[0].toDomain() }.toList()
-            emit(Resource.Success(
-                data
-            ))
-
+            weatherDao.weatherForecast().collect {
+                val data = it.map { weatherForecastEntity -> weatherForecastEntity.toDomain() }
+                emit(
+                    Resource.Success(
+                        data
+                    )
+                )
+            }
         } catch (e: IOException) {
             emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         } catch (e: Exception) {
-            //emit(Resource.Error(message = e.localizedMessage))
             Timber.e(e)
         }
     }
