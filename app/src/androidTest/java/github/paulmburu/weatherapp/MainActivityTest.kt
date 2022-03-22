@@ -5,7 +5,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import github.paulmburu.weatherapp.ui.mainActivity.MainActivity
 import io.github.kakaocup.kakao.image.KImageView
-import io.github.kakaocup.kakao.progress.KProgressBar
 import io.github.kakaocup.kakao.screen.Screen
 import org.junit.Rule
 import org.junit.Test

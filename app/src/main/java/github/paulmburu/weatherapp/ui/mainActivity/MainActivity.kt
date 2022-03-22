@@ -115,8 +115,8 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setObservers() {
-        viewModel.connectivityStatus.observe(this){
-            when(it){
+        viewModel.connectivityStatus.observe(this) {
+            when (it) {
                 false -> {
                     viewModel.loadLocalData()
                 }
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is MainViewModel.FetchCurrentWeatherUiState.Failure -> {
-                    displayEmptyState()
+                    displayFailedState()
                 }
 
                 is MainViewModel.FetchCurrentWeatherUiState.Success -> {
@@ -141,10 +141,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is MainViewModel.FetchCurrentWeatherUiState.Empty -> {
-                    displayEmptyState()
-                }
-
-                is MainViewModel.FetchCurrentWeatherUiState.Cleared -> {
                     displayEmptyState()
                 }
             }
@@ -157,7 +153,23 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is MainViewModel.FetchWeatherForecastUiState.Failure -> {
-                    displayEmptyState()
+
+                    viewModel.currentUserCoordinates.observe(this) {
+                        when (it) {
+                            null -> {
+                                displayEmptyState()
+                            }
+                            else -> {
+                                with(binding) {
+                                    progressBar.isVisible = false
+                                    forecastViews.isVisible = true
+                                    noDataImageView.isVisible = false
+                                    failedTextView.isVisible = false
+                                }
+                            }
+
+                        }
+                    }
                 }
 
                 is MainViewModel.FetchWeatherForecastUiState.Success -> {
@@ -166,10 +178,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 is MainViewModel.FetchWeatherForecastUiState.Empty -> {
-                    displayEmptyState()
-                }
-
-                is MainViewModel.FetchWeatherForecastUiState.Cleared -> {
                     displayEmptyState()
                 }
             }
@@ -191,6 +199,7 @@ class MainActivity : AppCompatActivity() {
             progressBar.isVisible = false
             forecastViews.isVisible = true
             noDataImageView.isVisible = false
+            failedTextView.isVisible = false
             tempTextView.text = currentLocationWeather.mainInfo.temp.convertKelvinToCelsius()
             tempMinTextView.text = currentLocationWeather.mainInfo.temp_min.convertKelvinToCelsius()
             currentTempTextView.text = currentLocationWeather.mainInfo.temp.convertKelvinToCelsius()
@@ -206,6 +215,7 @@ class MainActivity : AppCompatActivity() {
             progressBar.isVisible = false
             forecastViews.isVisible = true
             noDataImageView.isVisible = false
+            failedTextView.isVisible = false
         }
     }
 
@@ -244,6 +254,20 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(null)
 
         with(binding) {
+            noDataImageView.isVisible = true
+            failedTextView.isVisible = false
+            progressBar.isVisible = false
+            forecastViews.isVisible = false
+        }
+    }
+
+    private fun displayFailedState() {
+
+        with(binding) {
+            noDataImageView.setImageDrawable(
+                ContextCompat.getDrawable(applicationContext, R.drawable.failure_image)
+            )
+            failedTextView.isVisible = true
             noDataImageView.isVisible = true
             progressBar.isVisible = false
             forecastViews.isVisible = false

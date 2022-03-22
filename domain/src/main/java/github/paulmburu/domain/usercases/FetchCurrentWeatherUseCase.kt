@@ -1,7 +1,5 @@
 package github.paulmburu.domain.usercases
 
-//            Truth.assertThat(response).isSameInstanceAs(Data.currentLocationWeather)
-//            Truth.assertThat(response).isSameInstanceAs(CurrentLocationWeather::class.java)
 import github.paulmburu.common.Resource
 import github.paulmburu.domain.models.Coordinates
 import github.paulmburu.domain.models.CurrentLocationWeather

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import github.paulmburu.weatherapp.databinding.WeatherForecastItemBinding
 import github.paulmburu.weatherapp.models.WeatherForecastPresentation
-import github.paulmburu.weatherapp.util.convertKelvinToCelsius
 
 class WeatherForecastRecyclerAdapter(
 ) :

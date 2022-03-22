@@ -4,8 +4,6 @@ import github.paulmburu.domain.models.CurrentLocationWeather
 import github.paulmburu.domain.repository.WeatherRepository
 import github.paulmburu.domain.usercases.base.BaseUseCase
 
-
-
 typealias InsertCurrentWeatherBaseUseCase = BaseUseCase<List<CurrentLocationWeather>, Unit>
 
 class InsertCurrentWeatherUseCase(private val weatherRepository: WeatherRepository) :
