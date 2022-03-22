@@ -10,7 +10,7 @@ This is an android app that fetches current weather and weather forecast for the
 
 ## Architecture
 
-The application uses a combination of Clean Architeture, Model View view Model and Repository Pattern.
+The application uses a combination of Clean Architecture, Model View view Model and Repository Pattern.
 
 ### Clean Architecture
 
@@ -45,7 +45,7 @@ The data layer is responsible for providing data to the domain layer. It contain
 
 `:data:network` Handles data interacting with the network
 
-`:data:local` Handles persistance of data locally i.e provides local caching mechanism
+`:data:local` Handles persistence of data locally i.e provides local caching mechanism
 
 `:data:repository` Exposes the data to the domain layer abstracting the source of data.
 
@@ -53,7 +53,7 @@ The data layer is responsible for providing data to the domain layer. It contain
 
 `models`
 
-* ```Dto``` defines model and resposnes from the network
+* ```Dto``` defines model and responses from the network
 * ```Entities``` defines model/schema of the Database
 
 ### 3. Presentation
@@ -94,7 +94,7 @@ The presentation layer contains components involved in showing information to th
 Secrets are stored in  `secrets.properties` found in the `data/repository` folder. Create/ Edit the file and set the BEARER_TOKEN with the given token.
 
 ```
-// data/network/secrets.properties
+// data/repository/secrets.properties
 BEARER_TOKEN = ""
 ```
 
@@ -108,6 +108,7 @@ This helps hide the secrets from the repository
 |<img src= "demo/south_pacific_ocean_screenshot.png" width = "300" height = "600">
 |<img src= "demo/johannesburg_screenshot.png" width = "300" height = "600">
 |<img src= "demo/quebec_screenshot.png" width = "300" height = "600">
+|<img src= "demo/screens.gif" width = "300" height = "600">
 
 # References
 

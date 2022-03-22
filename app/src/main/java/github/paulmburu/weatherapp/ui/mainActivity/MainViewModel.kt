@@ -8,7 +8,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import github.paulmburu.common.Resource
 import github.paulmburu.domain.models.Coordinates
 import github.paulmburu.domain.models.CurrentLocationWeather
-import github.paulmburu.domain.models.WeatherForecast
 import github.paulmburu.domain.usercases.*
 import github.paulmburu.weatherapp.mappers.toPresentation
 import github.paulmburu.weatherapp.models.WeatherForecastPresentation
@@ -162,8 +161,6 @@ class MainViewModel @Inject constructor(
 
         object Empty : FetchCurrentWeatherUiState()
 
-        object Cleared : FetchCurrentWeatherUiState()
-
         data class Failure(val message: String) : FetchCurrentWeatherUiState()
 
         data class Success(val currentLocationWeather: CurrentLocationWeather) :
@@ -176,8 +173,6 @@ class MainViewModel @Inject constructor(
         object Loading : FetchWeatherForecastUiState()
 
         object Empty : FetchWeatherForecastUiState()
-
-        object Cleared : FetchWeatherForecastUiState()
 
         data class Failure(val message: String) : FetchWeatherForecastUiState()
 

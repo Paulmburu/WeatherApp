@@ -2,7 +2,6 @@ package github.paulmburu.domain.usercases
 
 import github.paulmburu.common.Resource
 import github.paulmburu.domain.models.Coordinates
-import github.paulmburu.domain.models.CurrentLocationWeather
 import github.paulmburu.domain.models.WeatherForecast
 import github.paulmburu.domain.repository.WeatherRepository
 import github.paulmburu.domain.usercases.base.BaseUseCase

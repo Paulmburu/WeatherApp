@@ -186,12 +186,23 @@
             android:id="@+id/no_data_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/no_data_image_view"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/no_data"
-            android:contentDescription="@string/no_data_image_view" />
+            app:srcCompat="@drawable/no_data" />
+
+        <TextView
+            android:id="@+id/failed_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:text="@string/failed_to_fetch_data_an_error_occurred"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/no_data_image_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,7 +5,6 @@ import github.paulmburu.common.Resource
 import github.paulmburu.domain.fakes.Data
 import github.paulmburu.domain.fakes.WeatherRepositoryFake
 import github.paulmburu.domain.models.Coordinates
-import github.paulmburu.domain.models.CurrentLocationWeather
 import github.paulmburu.domain.usercases.FetchCurrentWeatherBaseUseCase
 import github.paulmburu.domain.usercases.FetchCurrentWeatherUseCase
 import kotlinx.coroutines.flow.collect

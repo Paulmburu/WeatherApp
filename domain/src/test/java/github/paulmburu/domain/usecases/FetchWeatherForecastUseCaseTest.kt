@@ -2,10 +2,8 @@ package github.paulmburu.domain.usecases
 
 import com.google.common.truth.Truth
 import github.paulmburu.common.Resource
-import github.paulmburu.domain.fakes.Data
 import github.paulmburu.domain.fakes.WeatherRepositoryFake
 import github.paulmburu.domain.models.Coordinates
-import github.paulmburu.domain.usercases.FetchCurrentWeatherUseCase
 import github.paulmburu.domain.usercases.FetchWeatherForecastBaseUseCase
 import github.paulmburu.domain.usercases.FetchWeatherForecastUseCase
 import kotlinx.coroutines.flow.collect
