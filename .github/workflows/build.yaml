@@ -4,11 +4,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
       - name: Access BEARER_TOKEN
         env:
           BEARER_TOKEN: ${{ secrets.BEARER_TOKEN }}
-          run: echo BEARER_TOKEN=\"$BEARER_TOKEN\" > ./data/repository/secrets.properties
-      - name: Checkout the code
-        uses: actions/checkout@v2
+        run: echo BEARER_TOKEN=\"$BEARER_TOKEN\" > ./data/repository/secrets.properties
       - name: Build the app
         run: ./gradlew build

@@ -10,4 +10,6 @@
     <string name="tuesday">Tuesday</string>
     <string name="forecast_image_view">forecast image view</string>
     <string name="no_data_image_view">no data image view</string>
+    <string name="permission_location_rationale">You not granted permissions to access your location yet </string>
+
 </resources>
