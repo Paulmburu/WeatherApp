@@ -31,6 +31,11 @@ object Libraries {
         const val gson = "com.squareup.retrofit2:converter-gson:$version"
     }
 
+    object Jacoco {
+        const val version = "0.8.7"
+        const val jacocoAndroid = "com.hiya.jacoco-android"
+    }
+
     object JUnit {
         private const val version = "4.13"
         const val junit = "junit:junit:$version"
