@@ -88,6 +88,7 @@ The presentation layer contains components involved in showing information to th
 * [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) A scriptable web server for testing HTTP clients
 * [Kakao](https://github.com/KakaoCup/Kakao) Nice and simple DSL for Espresso in Kotlin
 * [MockK](https://mockk.io/) Mocking Library for Kotlin
+* [jacoco](https://github.com/jacoco/jacoco) - a Code Coverage Library.
 
 # Secrets
 
