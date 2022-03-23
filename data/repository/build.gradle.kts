@@ -5,7 +5,13 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id(Libraries.Jacoco.jacocoAndroid)
 }
+
+jacoco {
+    toolVersion = Libraries.Jacoco.version
+}
+
 
 android {
     defaultConfig {
