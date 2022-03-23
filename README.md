@@ -108,7 +108,7 @@ This helps hide the secrets from the repository
 |<img src= "demo/south_pacific_ocean_screenshot.png" width = "300" height = "600">
 |<img src= "demo/johannesburg_screenshot.png" width = "300" height = "600">
 |<img src= "demo/quebec_screenshot.png" width = "300" height = "600">
-|<img src= "demo/screens.gif" width = "300" height = "600">
+|<img src= "demo/weather_app_demo.gif" width = "300" height = "600">
 
 # References
 
